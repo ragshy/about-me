@@ -2,12 +2,12 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import CoverPage from './pages/CoverPage';
-import CurrentSituationPage from './pages/CurrentSituationPage';
-import PreviousWorkPage from './pages/PreviousWorkPage';
-import Project1Page from './pages/Project1Page';
-import Project2Page from './pages/Project2Page';
-import OtherPage from './pages/OtherPage';
-import InterestsPage from './pages/InterestsPage';
+import CurrentSituationPage from './pages/Page1-Current';
+import PreviousWorkPage from './pages/Page2-Previous';
+import Project1Page from './pages/Page3-Project1';
+import Project2Page from './pages/Page4-Project2';
+import OtherPage from './pages/Page5-Other';
+import InterestsPage from './pages/Page6-Interests';
 import BackPage from './pages/BackPage';
 
 const Magazine = () => {
@@ -15,14 +15,14 @@ const Magazine = () => {
   const [isMobile, setIsMobile] = useState(false);
 
   const pages = [
-    { component: CoverPage, title: "Cover" },
-    { component: CurrentSituationPage, title: "Current Situation" },
-    { component: PreviousWorkPage, title: "Previous Work" },
-    { component: Project1Page, title: "Project 1" },
-    { component: Project2Page, title: "Project 2" },
-    { component: OtherPage, title: "Other" },
-    { component: InterestsPage, title: "Interests" },
-    { component: BackPage, title: "Index" }
+    { component: CoverPage},
+    { component: CurrentSituationPage},
+    { component: PreviousWorkPage},
+    { component: Project1Page},
+    { component: Project2Page},
+    { component: OtherPage},
+    { component: InterestsPage },
+    { component: BackPage}
   ];
 
   // Calculate spreads for book-like pagination
@@ -43,7 +43,7 @@ const Magazine = () => {
     
     // Last spread shows just the back page
     if (pages.length > 1) {
-      spreads.push({ left: null, right: 7 });
+      spreads.push({ left: 7, right:  null});
     }
   } else {
     // Mobile: Each page is its own spread
@@ -91,88 +91,83 @@ const Magazine = () => {
   const currentSpreadData = spreads[currentSpread];
   const LeftPageComponent = currentSpreadData?.left !== null ? pages[currentSpreadData.left]?.component : null;
   const RightPageComponent = currentSpreadData?.right !== null ? pages[currentSpreadData.right]?.component : null;
-
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black flex items-center justify-center p-4">
-      <div className="relative w-full max-w-7xl">
-        {/* Desktop Layout */}
-        {!isMobile ? (
-          <div className="flex gap-4 justify-center items-center">
-            {/* Left Page */}
-            <div className="relative w-[400px] h-[600px] perspective-1000">
-              {LeftPageComponent ? (
-                <div className="magazine-page bg-white shadow-2xl rounded-r-lg overflow-hidden transform-gpu transition-transform duration-700">
-                  <LeftPageComponent onNavigate={goToPage} />
-                </div>
-              ) : (
-                <div className="w-[400px] h-[600px]" />
-              )}
-            </div>
-
-            {/* Right Page */}
-            <div className="relative w-[400px] h-[600px] perspective-1000">
-              {RightPageComponent ? (
-                <div className="magazine-page bg-white shadow-2xl rounded-l-lg overflow-hidden transform-gpu transition-transform duration-700">
-                  <RightPageComponent onNavigate={goToPage} />
-                </div>
-              ) : (
-                <div className="w-[400px] h-[600px]" />
-              )}
-            </div>
+return (
+  <div className="fixed inset-0 flex items-center justify-center">
+    <div className="relative w-full bg-gradient-to-br from-gray-900 via-gray-800 to-black h-full flex items-center justify-center">
+      {/* Desktop Layout */}
+      {!isMobile ? (
+        <div className="flex justify-center items-center h-full flex flex-grow">
+          {/* Left Page */}
+          <div className="w-1/2 h-full flex items-center justify-end">
+            {LeftPageComponent ? (
+                <LeftPageComponent onNavigate={goToPage} />
+              
+            ) : (
+              <div className="w-1/2 h-full" />
+            )}
           </div>
-        ) : (
-          /* Mobile Layout */
-          <div className="relative w-full max-w-md mx-auto">
-            <div className="relative w-full h-[80vh] perspective-1000">
-              {RightPageComponent && (
-                <div className="magazine-page bg-white shadow-2xl rounded-lg overflow-hidden transform-gpu transition-transform duration-700">
-                  <RightPageComponent onNavigate={goToPage} />
-                </div>
-              )}
-            </div>
-          </div>
-        )}
 
-        {/* Navigation Controls */}
-        <div className="absolute inset-y-0 left-0 flex items-center">
-          <button
-            onClick={prevSpread}
-            disabled={currentSpread === 0}
-            className="p-3 rounded-full bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed shadow-lg"
-          >
-            <ChevronLeft size={24} />
-          </button>
+          {/* Right Page */}
+          <div className="w-1/2 h-full flex items-center justify-start">
+            {RightPageComponent ? (
+                <RightPageComponent onNavigate={goToPage} />
+              
+            ) : (
+              <div className="w-1/2  h-full" />
+            )}
+          </div>
         </div>
-
-        <div className="absolute inset-y-0 right-0 flex items-center">
-          <button
-            onClick={nextSpread}
-            disabled={currentSpread === spreads.length - 1}
-            className="p-3 rounded-full bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed shadow-lg"
-          >
-            <ChevronRight size={24} />
-          </button>
-        </div>
-
-        {/* Page Indicator */}
-        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2">
-          <div className="flex space-x-2">
-            {spreads.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrentSpread(index)}
-                className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                  index === currentSpread 
-                    ? 'bg-white shadow-lg' 
-                    : 'bg-white/30 hover:bg-white/50'
-                }`}
-              />
-            ))}
+      ) : (
+        /* Mobile Layout */
+        <div className="max-w-md mx-auto flex items-center justify-center">
+          <div className="flex items-center justify-center">
+            {RightPageComponent && (
+                <RightPageComponent onNavigate={goToPage}/>
+              
+            )}
           </div>
+        </div>
+      )}
+
+      {/* Navigation Controls */}
+      <div className="absolute bottom-12 left-0 flex items-center">
+        <button
+          onClick={prevSpread}
+          disabled={currentSpread === 0}
+          className="p-3 rounded-full bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed shadow-lg"
+        >
+          <ChevronLeft size={24} />
+        </button>
+      </div>
+
+      <div className="absolute bottom-12 right-0 flex items-center">
+        <button
+          onClick={nextSpread}
+          disabled={currentSpread === spreads.length - 1}
+          className="p-3 rounded-full bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed shadow-lg"
+        >
+          <ChevronRight size={24} />
+        </button>
+      </div>
+
+      {/* Page Indicator */}
+      <div className="absolute bottom-4 left-1/2 -translate-x-1/2">
+        <div className="flex space-x-2">
+          {spreads.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentSpread(index)}
+              className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                index === currentSpread 
+                  ? 'bg-white shadow-lg' 
+                  : 'bg-white/30 hover:bg-white/50'
+              }`}
+            />
+          ))}
         </div>
       </div>
     </div>
-  );
-};
-
+  </div>
+);
+}
 export default Magazine;

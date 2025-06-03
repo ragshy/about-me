@@ -1,5 +1,6 @@
 
 import React from 'react';
+import Page from '../Page';
 
 interface PageProps {
   onNavigate?: (pageIndex: number) => void;
@@ -7,8 +8,7 @@ interface PageProps {
 
 const CurrentSituationPage: React.FC<PageProps> = ({ onNavigate }) => {
   return (
-    <div className="h-full bg-white p-8 flex flex-col">
-      {/* Header */}
+    <Page onNavigate={onNavigate} pageIndex={1} title="Current Situation" variant='left' className=' p-4'>
       <div className="border-b border-gray-200 pb-4 mb-6">
         <h1 className="text-3xl font-bold text-gray-900 tracking-tight">Current Situation</h1>
         <p className="text-sm text-gray-500 mt-1">What I'm up to right now</p>
@@ -72,11 +72,7 @@ const CurrentSituationPage: React.FC<PageProps> = ({ onNavigate }) => {
         </section>
       </div>
 
-      {/* Page number */}
-      <div className="text-center text-xs text-gray-400 mt-4">
-        01
-      </div>
-    </div>
+    </Page>
   );
 };
 

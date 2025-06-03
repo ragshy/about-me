@@ -1,5 +1,6 @@
 
 import React from 'react';
+import Page from '../Page';
 
 interface PageProps {
   onNavigate?: (pageIndex: number) => void;
@@ -13,15 +14,15 @@ const BackPage: React.FC<PageProps> = ({ onNavigate }) => {
     { title: "Project Alpha", page: 3, description: "E-commerce platform" },
     { title: "TaskFlow", page: 4, description: "Project management tool" },
     { title: "Other Work", page: 5, description: "Side projects & contributions" },
-    { title: "Interests", page: 6, description: "Beyond the code" },
-    { title: "Index", page: 7, description: "This page" }
+    { title: "Interests", page: 6, description: "Beyond the code" }
   ];
 
   return (
-    <div className="h-full bg-gradient-to-br from-gray-900 via-slate-800 to-gray-900 text-white p-8 flex flex-col">
+    <Page onNavigate={onNavigate} pageIndex={7} showPageNumber={false} title="Index" variant="left" className='bg-gradient-to-br from-gray-900 via-slate-800 to-gray-900  p-4'>
+    <div className="text-white p-8 flex flex-col">
       {/* Header */}
       <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold mb-2">Portfolio Index</h1>
+        <h1 className="text-3xl font-bold mb-2">This is in here</h1>
         <p className="text-sm opacity-70">Navigate to any section</p>
       </div>
 
@@ -50,30 +51,22 @@ const BackPage: React.FC<PageProps> = ({ onNavigate }) => {
 
       {/* Footer */}
       <div className="text-center mt-8 space-y-4">
-        <div className="text-xs opacity-50">
-          Built with React, TypeScript & Tailwind CSS
-        </div>
         
         <div className="flex justify-center space-x-6 text-sm">
-          <a href="#" className="hover:text-blue-400 transition-colors">
-            Email
-          </a>
           <a href="#" className="hover:text-blue-400 transition-colors">
             LinkedIn
           </a>
           <a href="#" className="hover:text-blue-400 transition-colors">
             GitHub
           </a>
-          <a href="#" className="hover:text-blue-400 transition-colors">
-            Twitter
-          </a>
         </div>
         
         <div className="text-xs opacity-50">
-          © 2024 Your Name. All rights reserved.
+          © 2024 Ragshanan Ragunathan. All rights reserved.
         </div>
       </div>
     </div>
+    </Page>
   );
 };
 

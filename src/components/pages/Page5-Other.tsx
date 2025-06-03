@@ -1,5 +1,6 @@
 
 import React from 'react';
+import Page from '../Page';
 
 interface PageProps {
   onNavigate?: (pageIndex: number) => void;
@@ -7,7 +8,7 @@ interface PageProps {
 
 const OtherPage: React.FC<PageProps> = ({ onNavigate }) => {
   return (
-    <div className="h-full bg-white p-8 flex flex-col">
+    <Page onNavigate={onNavigate} pageIndex={5} title="Other Work" variant="left" className='p-4'>
       {/* Header */}
       <div className="border-b border-gray-200 pb-4 mb-6">
         <h1 className="text-3xl font-bold text-gray-900 tracking-tight">Other Work</h1>
@@ -60,12 +61,8 @@ const OtherPage: React.FC<PageProps> = ({ onNavigate }) => {
           </div>
         </div>
       </div>
-
-      {/* Page number */}
-      <div className="text-center text-xs text-gray-400 mt-4">
-        05
-      </div>
-    </div>
+</Page>
+      
   );
 };
 

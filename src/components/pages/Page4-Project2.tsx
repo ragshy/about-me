@@ -1,5 +1,6 @@
 
 import React from 'react';
+import Page from '../Page';
 
 interface PageProps {
   onNavigate?: (pageIndex: number) => void;
@@ -7,10 +8,9 @@ interface PageProps {
 
 const Project2Page: React.FC<PageProps> = ({ onNavigate }) => {
   return (
-    <div className="h-full bg-white flex flex-col">
+    <Page onNavigate={onNavigate} pageIndex={4} title="Project: TaskFlow" variant="right" className='bg-gradient-to-br from-emerald-500 to-teal-600'>
       {/* Project Image */}
-      <div className="h-1/3 bg-gradient-to-br from-emerald-500 to-teal-600 relative overflow-hidden">
-        <div className="absolute inset-0 bg-black/20"></div>
+      <div className="h-1/3 relative overflow-hidden">
         <div className="absolute bottom-4 left-4 text-white">
           <h1 className="text-2xl font-bold">TaskFlow</h1>
           <p className="text-sm opacity-90">Project Management Tool</p>
@@ -18,7 +18,7 @@ const Project2Page: React.FC<PageProps> = ({ onNavigate }) => {
       </div>
 
       {/* Project Details */}
-      <div className="flex-1 p-6 space-y-4">
+      <div className="flex-1 p-6 space-y-4 bg-white">
         <div>
           <h2 className="text-lg font-semibold text-gray-900 mb-2">Overview</h2>
           <p className="text-sm text-gray-600 leading-relaxed">
@@ -65,11 +65,7 @@ const Project2Page: React.FC<PageProps> = ({ onNavigate }) => {
         </div>
       </div>
 
-      {/* Page number */}
-      <div className="text-center text-xs text-gray-400 pb-4">
-        04
-      </div>
-    </div>
+      </Page>
   );
 };
 

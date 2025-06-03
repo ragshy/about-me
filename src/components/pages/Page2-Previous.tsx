@@ -1,13 +1,15 @@
 
 import React from 'react';
 
+import Page from '../Page';
+
 interface PageProps {
   onNavigate?: (pageIndex: number) => void;
 }
 
 const PreviousWorkPage: React.FC<PageProps> = ({ onNavigate }) => {
   return (
-    <div className="h-full bg-white p-8 flex flex-col">
+    <Page onNavigate={onNavigate} pageIndex={2} title="Previous Work" variant="right" className='p-4'>
       {/* Header */}
       <div className="border-b border-gray-200 pb-4 mb-6">
         <h1 className="text-3xl font-bold text-gray-900 tracking-tight">Previous Work</h1>
@@ -81,11 +83,7 @@ const PreviousWorkPage: React.FC<PageProps> = ({ onNavigate }) => {
         </div>
       </div>
 
-      {/* Page number */}
-      <div className="text-center text-xs text-gray-400 mt-4">
-        02
-      </div>
-    </div>
+    </Page>
   );
 };
 
